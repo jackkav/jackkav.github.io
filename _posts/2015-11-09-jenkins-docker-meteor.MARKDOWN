@@ -9,38 +9,48 @@ categories: jenkins docker
 This build assumes you have already got meteor running using the meteorhacks/meteord:base image, which by default will grab your meteor bundle from the directory at: ~/app
 
 
+##Create jenkins container
 
-
-
-
-
-1. Create jenkins container
-
-```
+{% highlight bash %}
 docker run -d --name jenkinsci --restart=always -p 8080:8080 -p 50000:50000 -v /var/jenkins_home jenkins
-```
+{% endhighlight %}
+
+{% highlight ruby %}
+def print_hi(name)
+  puts "Hi, #{name}"
+end
+print_hi('Tom')
+#=> prints 'Hi, Tom' to STDOUT.
+{% endhighlight %}
+
 
 Point your browser at your docker url:8080, Go to Manage Jenkins, Manage Plugins, install git plugin.
 
-2. Install meteor on the jenkins server
-```
+##Install meteor on the jenkins server
+
+{% highlight bash %}
 docker exec -it jenkinsci /bin/bash
 curl https://install.meteor.com/ | sh
 export PATH=$PATH:$HOME/.meteor
 ssh-keygen
->[No password]
+#=>Don't use a password
 ssh-copy-id MYUSER@172.17.42.1
->[target machine ip, in this case docker host]
-```
-3. Set up a jenkins task with your git address, set poll SCM to every 5 minutes and bash script as follows:
-```
-H/5 * * * *
-```
-```
+#=>This ip is the default docker host IP
+{% endhighlight %}
+
+
+##Set up a jenkins task with your git address, set poll SCM to every 5 minutes and bash script as follows:
+
+    H/5 * * * *
+
+
+{% highlight bash %}
 meteor build --architecture=os.linux.x86_64 ./
 scp *.tar.gz MYUSER@172.17.42.1:~/app/MYMETEORAPP.tar.gz
 ssh MYUSER@172.17.42.1 ‘docker restart MYMETEORCONTAINER && exit’
-```
+{% endhighlight %}
+
+
 
 
 Next steps:
