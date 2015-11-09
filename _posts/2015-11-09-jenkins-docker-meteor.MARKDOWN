@@ -15,14 +15,6 @@ This build assumes you have already got meteor running using the meteorhacks/met
 docker run -d --name jenkinsci --restart=always -p 8080:8080 -p 50000:50000 -v /var/jenkins_home jenkins
 {% endhighlight %}
 
-{% highlight ruby %}
-def print_hi(name)
-  puts "Hi, #{name}"
-end
-print_hi('Tom')
-#=> prints 'Hi, Tom' to STDOUT.
-{% endhighlight %}
-
 
 Point your browser at your docker url:8080, Go to Manage Jenkins, Manage Plugins, install git plugin.
 
@@ -51,9 +43,7 @@ ssh MYUSER@172.17.42.1 ‘docker restart MYMETEORCONTAINER && exit’
 {% endhighlight %}
 
 
-
-
-Next steps:
+##Next steps:
 
 Use jenkins slave agents, instead of running the build on jenkins host would allow multiple deploy targets.
 
