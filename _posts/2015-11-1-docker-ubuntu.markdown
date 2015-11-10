@@ -9,9 +9,13 @@ Or Why it's important to use ubuntu to host docker in production, and in learnin
 
 Simplicity.
 
+
+
 We initially went with CentOS, to host our docker containers, that is until it dawned on us that the default docker setup on this OS has a maximum capacity of roughly 107GB. So great for running a few experiments but someday that's going to run out. I also found that for experimenting with docker for more than one purpose was very difficult with such restrictions.
 
 Here's where things became clear. [Friends Don't Let Friends Run Docker on Loopback in Production](http://www.projectatomic.io/blog/2015/06/notes-on-fedora-centos-and-docker-storage-drivers)
+
+So at least for the time being, while aufs is the only perfectly supported backend, stick with ubuntu. [Devicemapper support in docker](https://forums.docker.com/t/rmi-not-freeing-disk-space-in-devicemapper-sparse-file-centos-6-6/1640/4)
 
 There are a few gotchas in docker worth mentioning, such as an internal volume will not be deleted when docker rm is called unless you add the -v flag. Which eats through a lot of space when you are playing around with a db container and not removing the volumes.
 
